@@ -1,0 +1,49 @@
+.homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 2rem;
+  height: 100%;
+}
+
+.create-cv-button {
+  padding: 1.4rem 2rem;
+  border: 0px solid #393636;
+  border-radius: 26px;
+  font-size: 2rem;
+  color: #393636;
+  font-weight: bold;
+  background-color: #fff4f5;
+  box-shadow: 0px 4px 2px #393636;
+}
+
+.create-cv-button:hover {
+  cursor: pointer;
+  opacity: 0.8;
+  color: black;
+}
+
+.create-cv-button:active {
+  transform: translateY(5px);
+  box-shadow: 0px -2px 4px black;
+}
+
+.homepage-summary {
+  text-align: center;
+  font-size: 2.2rem;
+  background-color: #938489;
+  padding: 2rem 0;
+  color: white;
+  width: 100%;
+  animation: showSummary 4s ease 4s 1 normal;
+}
+
+@keyframes showSummary {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
