@@ -1,10 +1,9 @@
 :root {
   /*Color Palette*/
-  --color-one: #fff4f5;
-  --color-two: #e7dfe8;
-  --color-three: #e4dee4;
-  --color-four: #af9fa5;
-  --color-five: #92898a;
+  --primary-color: #f5efff;
+  --secondary-color: #cdc1ff;
+  --tertiary-color: #534b86;
+  --tertiary-color-two: #6f659f;
 }
 
 * {
@@ -31,7 +30,7 @@ html {
 
 body {
   min-height: 100vh;
-  background-color: var(--color-one);
+  background-color: var(--primary-color);
 }
 
 html,
@@ -55,22 +54,37 @@ header {
   justify-content: center;
   padding: 2rem;
   gap: 1rem;
+  font-family: merriweather;
 }
 
 .title-heading {
   font-size: 2.8rem;
   text-align: center;
-  color: #393636;
+  color: var(--tertiary-color);
 }
 
 .header-message {
   font-size: 1.6rem;
   text-align: center;
-  color: #4e494a;
+  color: var(--tertiary-color-two);
 }
 
 /*Main Section*/
 
 main {
-  background-color: var(--color-four);
+  background-color: var(--secondary-color);
+}
+
+/*Footer Section*/
+
+footer {
+  text-align: center;
+  padding: 1rem 0rem;
+  font-size: 1.2rem;
+  font-family: "Lato";
+  color: var(--tertiary-color);
+}
+
+.hidden {
+  display: none !important;
 }
