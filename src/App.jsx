@@ -1,13 +1,24 @@
 import "./App.css";
+import { useState } from "react";
 import Header from "./components/Header.jsx";
-import Main from "./components/Main.jsx";
+import HomePage from "./components/HomePage.jsx";
 import Footer from "./components/Footer.jsx";
+import CreateCVPage from "./components/CreateCVPage.jsx";
+import LoadCVPage from "./components/LoadCVPage.jsx";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("home");
+
   return (
     <>
       <Header />
-      <Main />
+      {currentPage === "home" && <HomePage setCurrentPage={setCurrentPage} />}
+      {currentPage === "create-cv" && (
+        <CreateCVPage setCurrentPage={setCurrentPage} />
+      )}
+      {currentPage === "load-cv" && (
+        <LoadCVPage setCurrentPage={setCurrentPage} />
+      )}
       <Footer />
     </>
   );
