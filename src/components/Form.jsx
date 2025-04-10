@@ -1,48 +1,80 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { AddButton, EditButton, ConfirmButton } from "./Button.jsx";
 import Education from "./Education.jsx";
+import WorkExperience from "./WorkExperience.jsx";
+import Skill from "./Skill.jsx";
+import Interests from "./Interests.jsx";
+import Profile from "./Profile.jsx";
+import PersonalDetails from "./PersonalDetails.jsx";
 
-function Form() {
-  const [educationItems, setEducationItems] = useState([]);
-  const [educationCounter, setEducationCounter] = useState(0);
+function Form(props) {
+  const [items, setItems] = useState([[], [], []]);
+  const [itemCounter, setItemCounter] = useState([[0], [0], [0]]);
 
-  const lastItemRef = useRef(null);
-
-  useEffect(() => {
-    console.log("Scrolling into view...");
-    console.log(lastItemRef.current);
-    setTimeout(() => {
-      if (lastItemRef.current) {
-        console.log(lastItemRef.current);
-        lastItemRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
-    }, 100);
-  }, [educationItems]);
-
-  const deleteEducationItem = function (id) {
+  const deleteItem = function (type, id) {
     console.log("Deleting item...");
-    setEducationItems((previousItems) =>
-      previousItems.filter((item) => item.id !== id)
-    );
+    setItems((previousItems) => {
+      return previousItems.map((group, index) => {
+        if (
+          (type === "education" && index === 0) ||
+          (type === "work" && index === 1) ||
+          (type === "skill" && index === 2)
+        ) {
+          return group.filter((item) => item.id !== id);
+        }
+        return group;
+      });
+    });
   };
 
-  const addEducationItem = function () {
+  const addItem = function (type) {
     const newItem = {
-      name: "education",
+      type: type,
       id: crypto.randomUUID(),
     };
-    setEducationItems((previousItems) => [...previousItems, newItem]);
+    setItems((previousItems) => {
+      return previousItems.map((group, index) => {
+        if (
+          (type === "education" && index === 0) ||
+          (type === "work" && index === 1) ||
+          (type === "skill" && index === 2)
+        ) {
+          return [...group, newItem];
+        }
+        return group;
+      });
+    });
+    console.log(items);
   };
 
-  const incrementEducationCounter = function () {
-    setEducationCounter((previousCounter) => previousCounter + 1);
+  const incrementItemCounter = function (type) {
+    setItemCounter((previousCounter) => {
+      return previousCounter.map((count, index) => {
+        if (
+          (type === "education" && index === 0) ||
+          (type === "work" && index === 1) ||
+          (type === "skill" && index === 2)
+        ) {
+          return count + 1;
+        }
+        return count;
+      });
+    });
   };
 
-  const decrementEducationCounter = function () {
-    setEducationCounter((previousCounter) => previousCounter - 1);
+  const decrementItemCounter = function (type) {
+    setItemCounter((previousCounter) => {
+      return previousCounter.map((count, index) => {
+        if (
+          (type === "education" && index === 0) ||
+          (type === "work" && index === 1) ||
+          (type === "skill" && index === 2)
+        ) {
+          return count - 1;
+        }
+        return count;
+      });
+    });
   };
 
   return (
@@ -50,180 +82,85 @@ function Form() {
       <form>
         <fieldset>
           <legend>Personal Details</legend>
-          <p>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" />
-          </p>
-          <p>
-            <label htmlFor="dateOfBirth">Date Of Birth:</label>
-            <input type="date" id="dateOfBirth" />
-          </p>
-          <legend>Address</legend>
-          <p>
-            <label htmlFor="addressLineOne">Address Line 1:</label>
-            <input type="text" id="addressLineOne" />
-          </p>
-          <p>
-            <label htmlFor="addressLineTwo">Address Line 2:</label>
-            <input type="text" id="addressLineTwo" />
-          </p>
-          <p>
-            <label htmlFor="addressCity">City:</label>
-            <input type="text" id="addressCity" />
-          </p>
-          <p>
-            <label htmlFor="addressCountry">Country:</label>
-            <input type="text" id="addressCountry" />
-          </p>
-          <p>
-            <label htmlFor="email">Email Address:</label>
-            <input type="email" id="email" />
-          </p>
-          <p>
-            <label htmlFor="phoneNumber">Phone Number:</label>
-            <input type="tel" id="phoneNumber" />
-          </p>
-          <div className="buttons-section">
-            <ConfirmButton />
-            <EditButton />
-          </div>
+          <PersonalDetails />
         </fieldset>
         <fieldset>
           <legend>Profile</legend>
-          <p className="description-section">
-            <textarea placeholder="Make a great impression by presenting yourself in a few sentences"></textarea>
-          </p>
-          <div className="buttons-section">
-            <ConfirmButton />
-            <EditButton />
-          </div>
+          <Profile />
         </fieldset>
         <fieldset>
           <legend>Education</legend>
-          {educationItems.length > 0 &&
-            educationItems.map((_, i) => (
+          {items[0].length > 0 &&
+            items[0].map((_, i) => (
               <Education
-                key={educationItems[i].id}
-                id={educationItems[i].id}
-                deleteItem={deleteEducationItem}
-                decrementItemCounter={decrementEducationCounter}
-                ref={i === educationItems.length - 1 ? lastItemRef : null}
+                key={items[0][i].id}
+                id={items[0][i].id}
+                type="education"
+                deleteItem={deleteItem}
+                decrementItemCounter={decrementItemCounter}
               />
             ))}
           <div className="add-button-container">
             <AddButton
               text="Education"
-              addNewItem={addEducationItem}
-              incrementItemCounter={incrementEducationCounter}
+              type="education"
+              addItem={addItem}
+              incrementItemCounter={incrementItemCounter}
             />
           </div>
         </fieldset>
         <fieldset>
           <legend>Work Experience</legend>
-          <p>
-            <label htmlFor="employerName">Employer Name:</label>
-            <input type="text" id="employerName" />
-          </p>
-          <p>
-            <label htmlFor="position">Position Held:</label>
-            <input type="text" id="position" />
-          </p>
-          <p className="dropdown-section">
-            <label htmlFor="startDate">Start Date:</label>
-            <div className="start-date-dropdowns">
-              <div>
-                <button className="month-dropdown">
-                  <span>Month</span>
-                  <div className="dropdown-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <title>chevron-down</title>
-                      <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                    </svg>
-                  </div>
-                </button>
-                <ul className="months hidden">
-                  <li>January</li>
-                  <li>February</li>
-                  <li>March</li>
-                  <li>April</li>
-                  <li>May</li>
-                  <li>June</li>
-                  <li>July</li>
-                  <li>August</li>
-                  <li>September</li>
-                  <li>August</li>
-                  <li>November</li>
-                  <li>December</li>
-                </ul>
-              </div>
-              <button className="year-dropdown">
-                <span>Year</span>
-                <div className="dropdown-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>chevron-down</title>
-                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          </p>
-          <p className="dropdown-section">
-            <label htmlFor="endDate">End Date:</label>
-            <div className="end-date-dropdowns">
-              <div>
-                <button className="month-dropdown">
-                  <span>Month</span>
-                  <div className="dropdown-arrow">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                      <title>chevron-down</title>
-                      <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                    </svg>
-                  </div>
-                </button>
-                <ul className="months hidden">
-                  <li>January</li>
-                  <li>February</li>
-                  <li>March</li>
-                  <li>April</li>
-                  <li>May</li>
-                  <li>June</li>
-                  <li>July</li>
-                  <li>August</li>
-                  <li>September</li>
-                  <li>August</li>
-                  <li>November</li>
-                  <li>December</li>
-                </ul>
-              </div>
-              <button className="year-dropdown">
-                <span>Year</span>
-                <div className="dropdown-arrow">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <title>chevron-down</title>
-                    <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-                  </svg>
-                </div>
-              </button>
-            </div>
-          </p>
-          <p className="description-section">
-            <label htmlFor="responsibilites">Main Responsibilities:</label>
-            <textarea id="responsibilities"></textarea>
-          </p>
+          {items[1].length > 0 &&
+            items[1].map((_, i) => (
+              <WorkExperience
+                key={items[1][i].id}
+                id={items[1][i].id}
+                type="work"
+                deleteItem={deleteItem}
+                decrementItemCounter={decrementItemCounter}
+              />
+            ))}
+          <div className="add-button-container">
+            <AddButton
+              text="Work Experience"
+              type="work"
+              addItem={addItem}
+              incrementItemCounter={incrementItemCounter}
+            />
+          </div>
         </fieldset>
         <fieldset>
           <legend>Skills</legend>
-          <p>
-            <label htmlFor="skill">Skill:</label>
-            <input type="text" id="skill" />
-          </p>
+          {items[2].length > 0 &&
+            items[2].map((_, i) => (
+              <Skill
+                key={items[2][i].id}
+                id={items[2][i].id}
+                type="skill"
+                deleteItem={deleteItem}
+                decrementItemCounter={decrementItemCounter}
+              />
+            ))}
+          <AddButton
+            text="Skill"
+            type="skill"
+            addItem={addItem}
+            incrementItemCounter={incrementItemCounter}
+          />
         </fieldset>
         <fieldset>
           <legend>Interests</legend>
-          <p className="description-section">
-            <textarea placeholder="A brief summary of your interests"></textarea>
-          </p>
+          <Interests />
         </fieldset>
+        <div className="finish-cv">
+          <button
+            className="finish-cv-button"
+            onClick={() => props.setCurrentPage("load-cv")}
+          >
+            Finish
+          </button>
+        </div>
       </form>
     </>
   );
