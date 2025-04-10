@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddButton, ConfirmButton, EditButton, DeleteButton } from "./Button";
+import { ConfirmButton, EditButton, DeleteButton } from "./Button";
 
 function Education(props) {
   const [confirmItem, setConfirmItem] = useState(false);
@@ -7,7 +7,7 @@ function Education(props) {
   const [disableItem, setDisableItem] = useState(false);
   return (
     <>
-      <div className="education-item" ref={props.ref}>
+      <div className="education-item">
         <div className={disableItem === true && "disabled"}>
           <p>
             <label htmlFor="course">Course Title:</label>
@@ -128,6 +128,7 @@ function Education(props) {
               <DeleteButton
                 key={props.id}
                 id={props.id}
+                type={props.type}
                 deleteItem={props.deleteItem}
                 decrementItemCounter={props.decrementItemCounter}
               />
