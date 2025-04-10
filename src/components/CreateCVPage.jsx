@@ -1,10 +1,10 @@
 import "../styles/CreateCVPage.css";
 import Form from "./Form.jsx";
 
-function CreateCVPage() {
+function CreateCVPage(props) {
   return (
     <main className="create-cv-page">
-      <Form />
+      <Form setCurrentPage={props.setCurrentPage} />
     </main>
   );
 }
