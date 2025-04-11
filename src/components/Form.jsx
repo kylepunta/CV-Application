@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AddButton, EditButton, ConfirmButton } from "./Button.jsx";
+import { AddButton } from "./Button.jsx";
 import Education from "./Education.jsx";
 import WorkExperience from "./WorkExperience.jsx";
 import Skill from "./Skill.jsx";
@@ -9,7 +9,6 @@ import PersonalDetails from "./PersonalDetails.jsx";
 
 function Form(props) {
   const [items, setItems] = useState([[], [], []]);
-  const [itemCounter, setItemCounter] = useState([[0], [0], [0]]);
 
   const deleteItem = function (type, id) {
     console.log("Deleting item...");
@@ -27,54 +26,46 @@ function Form(props) {
     });
   };
 
-  const addItem = function (type) {
-    const newItem = {
-      type: type,
-      id: crypto.randomUUID(),
-    };
-    setItems((previousItems) => {
-      return previousItems.map((group, index) => {
-        if (
-          (type === "education" && index === 0) ||
-          (type === "work" && index === 1) ||
-          (type === "skill" && index === 2)
-        ) {
-          return [...group, newItem];
-        }
-        return group;
+  const addItem = function (event, type) {
+    if (type === "skill" && event.key === "Enter") {
+      const newSkill = {
+        value: event.target.value,
+        id: crypto.randomUUID(),
+      };
+      setItems((previousItems) => {
+        return previousItems.map((group, index) => {
+          if (
+            (type === "education" && index === 0) ||
+            (type === "work" && index === 1) ||
+            (type === "skill" && index === 2)
+          ) {
+            return [...group, newSkill];
+          }
+          return group;
+        });
       });
-    });
-    console.log(items);
+      event.target.value = "";
+    } else {
+      const newItem = {
+        type: type,
+        id: crypto.randomUUID(),
+      };
+      setItems((previousItems) => {
+        return previousItems.map((group, index) => {
+          if (
+            (type === "education" && index === 0) ||
+            (type === "work" && index === 1)
+          ) {
+            return [...group, newItem];
+          }
+          return group;
+        });
+      });
+    }
   };
 
-  const incrementItemCounter = function (type) {
-    setItemCounter((previousCounter) => {
-      return previousCounter.map((count, index) => {
-        if (
-          (type === "education" && index === 0) ||
-          (type === "work" && index === 1) ||
-          (type === "skill" && index === 2)
-        ) {
-          return count + 1;
-        }
-        return count;
-      });
-    });
-  };
-
-  const decrementItemCounter = function (type) {
-    setItemCounter((previousCounter) => {
-      return previousCounter.map((count, index) => {
-        if (
-          (type === "education" && index === 0) ||
-          (type === "work" && index === 1) ||
-          (type === "skill" && index === 2)
-        ) {
-          return count - 1;
-        }
-        return count;
-      });
-    });
+  const submitForm = function (setCVdetails) {
+    setCVdetails("CV");
   };
 
   return (
@@ -97,16 +88,10 @@ function Form(props) {
                 id={items[0][i].id}
                 type="education"
                 deleteItem={deleteItem}
-                decrementItemCounter={decrementItemCounter}
               />
             ))}
           <div className="add-button-container">
-            <AddButton
-              text="Education"
-              type="education"
-              addItem={addItem}
-              incrementItemCounter={incrementItemCounter}
-            />
+            <AddButton text="Education" type="education" addItem={addItem} />
           </div>
         </fieldset>
         <fieldset>
@@ -118,36 +103,31 @@ function Form(props) {
                 id={items[1][i].id}
                 type="work"
                 deleteItem={deleteItem}
-                decrementItemCounter={decrementItemCounter}
               />
             ))}
           <div className="add-button-container">
-            <AddButton
-              text="Work Experience"
-              type="work"
-              addItem={addItem}
-              incrementItemCounter={incrementItemCounter}
-            />
+            <AddButton text="Work Experience" type="work" addItem={addItem} />
           </div>
         </fieldset>
         <fieldset>
           <legend>Skills</legend>
-          {items[2].length > 0 &&
-            items[2].map((_, i) => (
-              <Skill
-                key={items[2][i].id}
-                id={items[2][i].id}
-                type="skill"
-                deleteItem={deleteItem}
-                decrementItemCounter={decrementItemCounter}
-              />
-            ))}
-          <AddButton
-            text="Skill"
-            type="skill"
-            addItem={addItem}
-            incrementItemCounter={incrementItemCounter}
+          <input
+            type="text"
+            placeholder="Enter skills"
+            onKeyDown={(event) => {
+              addItem(event, "skill");
+            }}
           />
+          <div className="skills-container">
+            {items[2].length > 0 &&
+              items[2].map((_, i) => (
+                <Skill
+                  key={items[2][i].id}
+                  id={items[2][i].id}
+                  value={items[2][i].value}
+                />
+              ))}
+          </div>
         </fieldset>
         <fieldset>
           <legend>Interests</legend>
@@ -156,7 +136,10 @@ function Form(props) {
         <div className="finish-cv">
           <button
             className="finish-cv-button"
-            onClick={() => props.setCurrentPage("load-cv")}
+            onClick={() => {
+              props.setCurrentPage("load-cv");
+              submitForm(props.setCVdetails);
+            }}
           >
             Finish
           </button>
