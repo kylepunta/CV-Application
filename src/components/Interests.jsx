@@ -17,26 +17,6 @@ function Interests(props) {
       >
         <textarea placeholder="A brief summary of your interests"></textarea>
       </p>
-      <div className="buttons-section">
-        {confirmItem === true && (
-          <>
-            <EditButton
-              setConfirmItem={setConfirmItem}
-              setEditItem={setEditItem}
-              setDisableItem={setDisableItem}
-            />
-          </>
-        )}
-        {confirmItem === false && (
-          <>
-            <ConfirmButton
-              setConfirmItem={setConfirmItem}
-              setEditItem={setEditItem}
-              setDisableItem={setDisableItem}
-            />
-          </>
-        )}
-      </div>
     </>
   );
 }
