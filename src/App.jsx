@@ -8,16 +8,20 @@ import LoadCVPage from "./components/LoadCVPage.jsx";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
+  const [cvDetails, setCVdetails] = useState(null);
 
   return (
     <>
       <Header />
       {currentPage === "home" && <HomePage setCurrentPage={setCurrentPage} />}
       {currentPage === "create-cv" && (
-        <CreateCVPage setCurrentPage={setCurrentPage} />
+        <CreateCVPage
+          setCurrentPage={setCurrentPage}
+          setCVdetails={setCVdetails}
+        />
       )}
       {currentPage === "load-cv" && (
-        <LoadCVPage setCurrentPage={setCurrentPage} />
+        <LoadCVPage setCurrentPage={setCurrentPage} cvDetails={cvDetails} />
       )}
       <Footer />
     </>
