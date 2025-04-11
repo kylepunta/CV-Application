@@ -237,3 +237,28 @@ p.description-section {
 button:hover {
   cursor: pointer;
 }
+
+.skill {
+  display: flex;
+  border: 1px solid var(--homepage-summary-bg-color);
+  border-radius: 18px;
+  width: fit-content;
+  padding: 0.3rem 0.6rem;
+}
+
+.skill > p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.svg-container > svg {
+  width: 20px;
+  height: 20px;
+}
