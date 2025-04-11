@@ -15,8 +15,7 @@ function AddButton(props) {
         className="add-button"
         onClick={(event) => {
           event.preventDefault();
-          props.addItem(props.type);
-          props.incrementItemCounter(props.type);
+          props.addItem(event, props.type);
         }}
       >
         <div className="add-icon">
@@ -80,7 +79,6 @@ function DeleteButton(props) {
         onClick={(event) => {
           event.preventDefault();
           props.deleteItem(props.type, props.id);
-          props.decrementItemCounter(props.type);
         }}
       >
         Delete
