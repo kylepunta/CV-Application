@@ -7,7 +7,7 @@
 .end-date-dropdowns {
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .start-date-dropdowns > div,
@@ -28,7 +28,7 @@
   color: #292544;
 }
 
-label {
+label:not(label.present) {
   font-size: 1.2rem;
   font-family: lato;
   color: #292544;
@@ -78,7 +78,7 @@ fieldset {
   gap: 1rem;
 }
 
-input {
+input:not(input.checkbox) {
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 0.6rem;
@@ -87,6 +87,15 @@ input {
   color: #000;
   flex: 1;
   width: 100%;
+}
+
+select {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.6rem;
+  font-family: lato;
+  background-color: #f5f5f5;
+  color: #000;
 }
 
 .dropdown-section {
@@ -261,4 +270,27 @@ button:hover {
 .svg-container > svg {
   width: 20px;
   height: 20px;
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+select.year {
+  padding-right: 9rem;
+}
+
+.checkbox {
+  accent-color: var(--tertiary-color);
+}
+
+.present-field {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  margin-left: 1rem;
 }
