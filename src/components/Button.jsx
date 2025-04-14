@@ -15,7 +15,7 @@ function AddButton(props) {
         className="add-button"
         onClick={(event) => {
           event.preventDefault();
-          props.addItem(event, props.type);
+          props.addItem(props.type);
         }}
       >
         <div className="add-icon">
