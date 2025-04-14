@@ -2,8 +2,13 @@ function Skill(props) {
   return (
     <>
       <div className="skill" id={props.id}>
-        <p>{props.value}</p>
-        <div className="svg-container">
+        <p>{props.skill.skillName}</p>
+        <div
+          className="svg-container"
+          onClick={() => {
+            props.deleteItem(props.type, props.id);
+          }}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
