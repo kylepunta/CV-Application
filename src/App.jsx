@@ -8,7 +8,7 @@ import LoadCVPage from "./components/LoadCVPage.jsx";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
-  const [cvDetails, setCVdetails] = useState(null);
+  const [cvDetails, setCVdetails] = useState([[], [], [], [], [], []]);
 
   return (
     <>
