@@ -11,7 +11,7 @@ function WorkExperience(props) {
     <>
       <div className="work-item">
         <div className={disableItem === true && "disabled"}>
-          <p>
+          <p className="employer-field">
             <label htmlFor="employerName">Employer Name:</label>
             <input
               type="text"
@@ -30,7 +30,7 @@ function WorkExperience(props) {
               }}
             />
           </p>
-          <p>
+          <p className="position-field">
             <label htmlFor="position">Position Held:</label>
             <input
               type="text"
@@ -55,12 +55,18 @@ function WorkExperience(props) {
               <div>
                 <select
                   className="month"
-                  value={props.work.startDateMonth}
+                  value={props.work.startDate.month}
                   onChange={(e) => {
                     props.setWork((previousWork) => {
                       return previousWork.map((work) => {
                         if (work.id === props.id) {
-                          return { ...work, startDateMonth: e.target.value };
+                          return {
+                            ...work,
+                            startDate: {
+                              ...work.startDate,
+                              month: e.target.value,
+                            },
+                          };
                         } else {
                           return { ...work };
                         }
@@ -85,12 +91,18 @@ function WorkExperience(props) {
               </div>
               <select
                 className="year"
-                value={props.work.startDateYear}
+                value={props.work.startDate.year}
                 onChange={(e) => {
                   props.setWork((previousWork) => {
                     return previousWork.map((work) => {
                       if (work.id === props.id) {
-                        return { ...work, startDateYear: e.target.value };
+                        return {
+                          ...work,
+                          startDate: {
+                            ...work.startDate,
+                            year: e.target.value,
+                          },
+                        };
                       } else {
                         return { ...work };
                       }
@@ -116,12 +128,15 @@ function WorkExperience(props) {
               <div>
                 <select
                   className="month"
-                  value={props.work.endDateMonth}
+                  value={props.work.endDate.month}
                   onChange={(e) => {
                     props.setWork((previousWork) => {
                       return previousWork.map((work) => {
                         if (work.id === props.id) {
-                          return { ...work, endDateMonth: e.target.value };
+                          return {
+                            ...work,
+                            endDate: { ...work.endDate, month: e.target.value },
+                          };
                         } else {
                           return { ...work };
                         }
@@ -146,12 +161,15 @@ function WorkExperience(props) {
               </div>
               <select
                 className="year"
-                value={props.work.endDateYear}
+                value={props.work.endDate.year}
                 onChange={(e) => {
                   props.setWork((previousWork) => {
                     return previousWork.map((work) => {
                       if (work.id === props.id) {
-                        return { ...work, endDateYear: e.target.value };
+                        return {
+                          ...work,
+                          endDate: { ...work.endDate, year: e.target.value },
+                        };
                       } else {
                         return { ...work };
                       }
@@ -170,42 +188,42 @@ function WorkExperience(props) {
                 })}
               </select>
             </div>
-            <p className="present-field">
-              <input
-                className="checkbox"
-                type="checkbox"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    endDateRef.current.classList.add("hidden");
-                    props.setEducation((prev) => {
-                      const newEducation = [...prev];
-                      for (let i = 0; i < newEducation.length; i++) {
-                        if (newEducation[i].id === props.education.id) {
-                          newEducation[i].endDate.month = "present";
-                          newEducation[i].endDate.year = "present";
-                        }
+          </p>
+          <p className="present-field">
+            <input
+              className="checkbox"
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  endDateRef.current.classList.add("disabled");
+                  props.setWork((prev) => {
+                    const newWork = [...prev];
+                    for (let i = 0; i < newWork.length; i++) {
+                      if (newWork[i].id === props.work.id) {
+                        newWork[i].endDate.month = "present";
+                        newWork[i].endDate.year = "present";
                       }
-                      return newEducation;
-                    });
-                  } else {
-                    endDateRef.current.classList.remove("hidden");
-                    props.setEducation((prev) => {
-                      const newEducation = [...prev];
-                      for (let i = 0; i < newEducation.length; i++) {
-                        if (newEducation[i].id === props.education.id) {
-                          newEducation[i].endDate.month = "";
-                          newEducation[i].endDate.year = "";
-                        }
+                    }
+                    return newWork;
+                  });
+                } else {
+                  endDateRef.current.classList.remove("disabled");
+                  props.setEducation((prev) => {
+                    const newEducation = [...prev];
+                    for (let i = 0; i < newEducation.length; i++) {
+                      if (newEducation[i].id === props.education.id) {
+                        newEducation[i].endDate.month = "";
+                        newEducation[i].endDate.year = "";
                       }
-                      return newEducation;
-                    });
-                  }
-                }}
-              />
-              <label className="present" htmlFor="present">
-                Present
-              </label>
-            </p>
+                    }
+                    return newEducation;
+                  });
+                }
+              }}
+            />
+            <label className="present" htmlFor="present">
+              Present
+            </label>
           </p>
           <p className="description-section">
             <label htmlFor="responsibilites">Main Responsibilities:</label>

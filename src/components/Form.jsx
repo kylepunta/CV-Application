@@ -7,6 +7,7 @@ import Skill from "./Skill.jsx";
 import Interests from "./Interests.jsx";
 import Profile from "./Profile.jsx";
 import PersonalDetails from "./PersonalDetails.jsx";
+import CVPreview from "./CVPreview.jsx";
 
 function Form(props) {
   const [personalDetails, setPersonalDetails] = useState({
@@ -122,14 +123,13 @@ function Form(props) {
   return (
     <>
       <form>
-        <fieldset>
-          <legend>Personal Details</legend>
+        <fieldset className="personal-details-section">
           <PersonalDetails
             personalDetails={personalDetails}
             setPersonalDetails={setPersonalDetails}
           />
         </fieldset>
-        <fieldset>
+        <fieldset className="profile-section">
           <legend>Profile</legend>
           <Profile profile={profile} setProfile={setProfile} />
         </fieldset>
@@ -170,6 +170,7 @@ function Form(props) {
         <fieldset>
           <legend>Skills</legend>
           <input
+            id="skills-input"
             type="text"
             placeholder="Enter skills"
             onKeyDown={(e) => {
@@ -201,12 +202,43 @@ function Form(props) {
             className="finish-cv-button"
             onClick={() => {
               props.setCurrentPage("load-cv");
+              props.setCVdetails((prev) => {
+                const newCVdetails = [...prev];
+                newCVdetails[0] = personalDetails;
+                newCVdetails[1] = profile;
+                newCVdetails[2] = education;
+                newCVdetails[3] = work;
+                newCVdetails[4] = skills;
+                newCVdetails[5] = interests;
+                return newCVdetails;
+              });
             }}
           >
             Finish
           </button>
         </div>
+        <button
+          className="preview-button"
+          onClick={(event) => {
+            event.preventDefault();
+            document.querySelector(".cv-preview-dialog").showModal();
+            document.querySelector(".preview-button").classList.add("hidden");
+          }}
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <title>file-document</title>
+            <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M15,18V16H6V18H15M18,14V12H6V14H18Z" />
+          </svg>
+        </button>
       </form>
+      <CVPreview
+        personalDetails={personalDetails}
+        profile={profile}
+        education={education}
+        work={work}
+        interests={interests}
+        skills={skills}
+      />
     </>
   );
 }

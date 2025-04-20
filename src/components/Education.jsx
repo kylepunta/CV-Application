@@ -48,7 +48,7 @@ function Education(props) {
               }}
             />
           </p>
-          <p>
+          {/* <p>
             <label htmlFor="educationCity">City:</label>
             <input
               type="text"
@@ -66,8 +66,8 @@ function Education(props) {
                 });
               }}
             />
-          </p>
-          <p>
+          </p> */}
+          {/* <p>
             <label htmlFor="educationCountry">Country:</label>
             <input
               type="text"
@@ -85,7 +85,7 @@ function Education(props) {
                 });
               }}
             />
-          </p>
+          </p> */}
           <p className="dropdown-section">
             <label htmlFor="startDate">Start Date:</label>
             <div className="start-date-dropdowns">
@@ -207,42 +207,42 @@ function Education(props) {
                 })}
               </select>
             </div>
-            <p className="present-field">
-              <input
-                className="checkbox"
-                type="checkbox"
-                onChange={(e) => {
-                  if (e.target.checked) {
-                    endDateRef.current.classList.add("hidden");
-                    props.setEducation((prev) => {
-                      const newEducation = [...prev];
-                      for (let i = 0; i < newEducation.length; i++) {
-                        if (newEducation[i].id === props.education.id) {
-                          newEducation[i].endDate.month = "present";
-                          newEducation[i].endDate.year = "present";
-                        }
+          </p>
+          <p className="present-field">
+            <input
+              className="checkbox"
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  endDateRef.current.classList.add("disabled");
+                  props.setEducation((prev) => {
+                    const newEducation = [...prev];
+                    for (let i = 0; i < newEducation.length; i++) {
+                      if (newEducation[i].id === props.education.id) {
+                        newEducation[i].endDate.month = "present";
+                        newEducation[i].endDate.year = "present";
                       }
-                      return newEducation;
-                    });
-                  } else {
-                    endDateRef.current.classList.remove("hidden");
-                    props.setEducation((prev) => {
-                      const newEducation = [...prev];
-                      for (let i = 0; i < newEducation.length; i++) {
-                        if (newEducation[i].id === props.education.id) {
-                          newEducation[i].endDate.month = "";
-                          newEducation[i].endDate.year = "";
-                        }
+                    }
+                    return newEducation;
+                  });
+                } else {
+                  endDateRef.current.classList.remove("disabled");
+                  props.setEducation((prev) => {
+                    const newEducation = [...prev];
+                    for (let i = 0; i < newEducation.length; i++) {
+                      if (newEducation[i].id === props.education.id) {
+                        newEducation[i].endDate.month = "";
+                        newEducation[i].endDate.year = "";
                       }
-                      return newEducation;
-                    });
-                  }
-                }}
-              />
-              <label className="present" htmlFor="present">
-                Present
-              </label>
-            </p>
+                    }
+                    return newEducation;
+                  });
+                }
+              }}
+            />
+            <label className="present" htmlFor="present">
+              Present
+            </label>
           </p>
           <p className="description-section">
             <label htmlFor="description">Description:</label>

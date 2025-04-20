@@ -7,7 +7,8 @@
 .end-date-dropdowns {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
 }
 
 .start-date-dropdowns > div,
@@ -29,10 +30,9 @@
 }
 
 label:not(label.present) {
-  font-size: 1.2rem;
-  font-family: lato;
-  color: #292544;
-  flex: 1;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
 }
 
 legend {
@@ -43,11 +43,11 @@ legend {
   padding: 1rem 0;
 }
 
-fieldset > p:not(.dropdown-section),
-.personal-details > div:first-child > p:not(.dropdown-section),
-.education-item > div:first-child > p:not(.dropdown-section),
-.work-item > div:first-child > p:not(.dropdown-section),
-.skill-item > div:first-child > p:not(.dropdown-section) {
+fieldset > p:not(.dropdown-section, .present-field),
+.personal-details > div:first-child > p:not(.dropdown-section, .present-field),
+.education-item > div:first-child > p:not(.dropdown-section, .present-field),
+.work-item > div:first-child > p:not(.dropdown-section, .present-field),
+.skill-item > div:first-child > p:not(.dropdown-section, .present-field) {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -78,15 +78,31 @@ fieldset {
   gap: 1rem;
 }
 
-input:not(input.checkbox) {
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  padding: 0.6rem;
-  font-family: lato;
-  background-color: #f5f5f5;
-  color: #000;
-  flex: 1;
+fieldset:not(.section-card) {
+  margin: 0 auto;
   width: 100%;
+  max-width: 340px;
+}
+
+fieldset.personal-details-section {
+  padding: 0;
+}
+
+input:not(input.checkbox) {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6c63ff;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
 }
 
 select {
@@ -101,7 +117,7 @@ select {
 .dropdown-section {
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.1rem;
 }
 
 .months {
@@ -132,12 +148,12 @@ p.description-section {
 }
 
 .description-section textarea {
-  border: 1px solid var(--secondary-color);
-  border-radius: 8px;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
   min-height: 10rem;
   padding: 0.6rem;
   font-family: lato;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .buttons-section {
@@ -204,9 +220,16 @@ p.description-section {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  border: 1px solid var(--secondary-color);
-  border-radius: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 12px;
   padding: 1rem;
+  background-color: #fdfdfd;
+}
+
+textarea {
+  border-radius: 12px;
+  border: 2px solid var(--primary-color);
+  background-color: #fff;
 }
 
 .personal-details > div:first-child,
@@ -227,10 +250,12 @@ p.description-section {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  top: 32px;
 }
 
 .finish-cv-button {
-  font-size: 1.4rem;
+  font-size: 1.4rem !important;
   padding: 0.4rem 5rem;
   background-color: #907ebd;
   color: white;
@@ -245,6 +270,7 @@ p.description-section {
 
 button:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .skill {
@@ -272,6 +298,10 @@ button:hover {
   height: 20px;
 }
 
+.svg-container:hover {
+  cursor: pointer;
+}
+
 .skills-container {
   display: flex;
   flex-wrap: wrap;
@@ -279,11 +309,25 @@ button:hover {
 }
 
 select.year {
-  padding-right: 9rem;
+  padding-right: 4rem;
+}
+
+select.month {
+  padding-right: 2rem;
 }
 
 .checkbox {
   accent-color: var(--tertiary-color);
+}
+
+.checkbox:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.start-date-dropdowns > div,
+.start-date-dropdowns > select:hover {
+  cursor: pointer;
 }
 
 .present-field {
@@ -293,4 +337,300 @@ select.year {
   gap: 0.4rem;
   margin-top: 0.5rem;
   margin-left: 1rem;
+}
+
+fieldset:not(.personal-details-section) {
+  border-radius: 12px;
+  border: 2px solid var(--primary-color);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+}
+
+.profile-section,
+.section-card,
+fieldset:nth-of-type(3),
+fieldset:nth-of-type(4),
+fieldset:nth-of-type(5),
+fieldset:nth-of-type(6) {
+  background-color: #fafafa;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+  border: 2px solid var(--primary-color);
+  max-width: 300px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.add-button span,
+.buttons-section button,
+.finish-cv-button {
+  font-size: 1rem;
+}
+
+.preview-button {
+  position: sticky;
+  z-index: 1000;
+  background-color: var(--tertiary-color);
+  border-radius: 40px;
+  border: none;
+  width: 60px;
+  height: 60px;
+  bottom: 12px;
+  left: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-button:hover {
+  cursor: pointer;
+}
+
+.preview-button svg {
+  width: 35px;
+  height: 35px;
+  fill: #fff;
+}
+
+.cv-preview-dialog {
+  width: 90%;
+  max-width: 800px;
+  height: 75%;
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  overflow: hidden;
+  margin: 0 auto;
+  position: fixed;
+  top: 15%;
+}
+
+.cv-preview-header {
+  display: flex;
+  align-items: center;
+  background-color: var(--tertiary-color);
+  color: white;
+  padding: 12px 20px;
+  gap: 4rem;
+}
+
+.cv-preview-content {
+  padding: 26px;
+  overflow-y: auto;
+  height: calc(100% - 60px);
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.cv-return-button {
+  cursor: pointer;
+  background-color: #fff;
+  padding: 2px 10px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.5rem;
+}
+
+.cv-download-button {
+  background: none;
+  border: none;
+  width: fit-content;
+}
+
+.cv-download-button svg {
+  width: 26px;
+  height: 26px;
+  fill: #fff;
+}
+
+@media (min-width: 768px) {
+  fieldset:not(.section-card) {
+    margin: 0 auto;
+    max-width: 600px !important;
+    width: 100%;
+  }
+  #personal-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  #address-legend {
+    grid-area: 3 / 1 / 4 / 3;
+  }
+
+  .email-field {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+
+  .phone-field {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+
+  .section-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 600px !important;
+  }
+
+  .description-section > textarea {
+    resize: vertical;
+    min-height: 240px;
+    font-size: 1rem;
+  }
+
+  #skills-input {
+    margin: 0 auto;
+  }
+
+  .education-item > div:not(.buttons-section),
+  .work-item > div:not(.buttons-section) {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .education-item,
+  .work-item {
+    max-width: 600px;
+    background-color: #fdfdfd;
+  }
+
+  .education-item p,
+  .work-item p {
+    display: flex !important;
+    flex-direction: row !important;
+  }
+
+  .education-item > div > p:not(.dropdown-section, .present-field) > label,
+  .work-item > div > p:not(.dropdown-section, .present-field) > label {
+    flex: 1 !important;
+  }
+
+  .education-item > div > p:not(.dropdown-section, .present-field) > input,
+  .work-item > div > p:not(.dropdown-section, .present-field) > input {
+    flex: 4 !important;
+  }
+
+  .dropdown-section > label {
+    flex: 1;
+  }
+
+  .dropdown-section > div {
+    flex: 4;
+    gap: 0.4rem;
+  }
+
+  .employer-field {
+    grid-area: 1 / 1 / 2 / 4;
+  }
+
+  .position-field {
+    grid-area: 2 / 1 / 3 / 4;
+  }
+
+  .work-item > div > p:nth-of-type(3) {
+    grid-area: 3 / 1 / 4 / 4;
+  }
+
+  .work-item > div > p:nth-of-type(4) {
+    grid-area: 4 / 1 / 5 / 4;
+  }
+
+  .work-item .present-field {
+    grid-area: 4 / 3 / 5 / 4;
+    padding-left: 4rem;
+    padding-right: 0.6rem;
+  }
+
+  .work-item .description-section {
+    grid-column: 1 / 4;
+  }
+
+  #responsibilities,
+  #description {
+    flex: 4;
+  }
+
+  .buttons-section > button {
+    padding: 0.4rem 2.4rem;
+  }
+
+  .education-item > div > p:nth-of-type(1) {
+    grid-area: 1 / 1 / 2 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(2) {
+    grid-area: 2 / 1 / 3 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(3) {
+    grid-area: 3 / 1 / 4 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(4) {
+    grid-area: 4 / 1 / 5 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(5) {
+    grid-area: 5 / 1 / 6 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(6) {
+    grid-area: 6 / 1 / 7 / 4;
+  }
+
+  .education-item > div > p:nth-of-type(7) {
+    grid-area: 6 / 3 / 7 / 4;
+    padding-left: 4rem;
+    padding-right: 0.6rem;
+  }
+
+  .education-item > div > p:nth-of-type(8) {
+    grid-area: 7 / 1 / 8 / 4;
+  }
+
+  fieldset:nth-of-type(3),
+  fieldset:nth-of-type(4),
+  fieldset:nth-of-type(5),
+  fieldset:nth-of-type(6) {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .preview-button {
+    left: 100%;
+  }
+
+  .cv-preview-dialog {
+    height: 100%;
+    top: 2%;
+  }
+
+  .preview-cv {
+    max-width: 400px;
+    font-size: 0.4rem;
+  }
+
+  .cv-preview-header {
+    display: flex;
+    align-items: center;
+    background-color: var(--tertiary-color);
+    color: white;
+    padding: 12px 20px;
+    gap: 9rem;
+  }
+
+  .cv-preview-dialog {
+    max-width: 600px;
+  }
+
+  .present-field {
+    grid-area: 4 / 3 / 5 / 4 !important;
+    padding-right: 0.5rem !important;
+  }
 }

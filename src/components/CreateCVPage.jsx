@@ -1,5 +1,6 @@
 import "../styles/CreateCVPage.css";
 import Form from "./Form.jsx";
+import CVPreview from "./CVPreview.jsx";
 
 function CreateCVPage(props) {
   return (
