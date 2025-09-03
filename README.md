@@ -15,18 +15,18 @@ A weather web application built with **HTML**, **CSS**, and **React**. Users can
 ## Screenshots
 
 
-![CV Application Screenshot](images/1.png)
-![CV Application Screenshot](images/2.png)
-![CV Application Screenshot](images/3.png)
-![CV Application Screenshot](images/4.png)
-![CV Application Screenshot](images/5.png)
-![CV Application Screenshot](images/6.png)
-![CV Application Screenshot](images/7.png)
-![CV Application Screenshot](images/8.png)
-![CV Application Screenshot](images/9.png)
-![CV Application Screenshot](images/10.png)
-![CV Application Screenshot](images/11.png)
-![CV Application Screenshot](images/12.png)
+![CV Application Screenshot](src/assets/images/1.png)
+![CV Application Screenshot](src/assets/images/2.png)
+![CV Application Screenshot](src/assets/images/3.png)
+![CV Application Screenshot](src/assets/images/4.png)
+![CV Application Screenshot](src/assets/images/5.png)
+![CV Application Screenshot](src/assets/images/6.png)
+![CV Application Screenshot](src/assets/images/7.png)
+![CV Application Screenshot](src/assets/images/8.png)
+![CV Application Screenshot](src/assets/images/9.png)
+![CV Application Screenshot](src/assets/images/10.png)
+![CV Application Screenshot](src/assets/images/11.png)
+![CV Application Screenshot](src/assets/images/12.png)
 
 ## How It Works
 
